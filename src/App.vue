@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="page-container">
-    <md-app md-waterfall md-mode="fixed-last">
+    <md-app md-waterfall>
       <md-app-toolbar class="md-large md-dense md-primary">
         <div class="md-toolbar-row">
           <div class="md-toolbar-section-start">
