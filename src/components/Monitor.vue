@@ -1,101 +1,43 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Monitor</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+  <div>
+    <md-card>
+      <md-card-header>
+        <div class="md-title">Motor position</div>
+      </md-card-header>
+
+      <md-card-content>
+        <div>
+          <StepperMotor :radius="180"></StepperMotor>
+        </div>
+        <div id="stepper"></div>
+        <div>
+          <input type="range" v-model.number="startAngle"> {{ startAngle }}%
+        </div>
+      </md-card-content>
+
+    </md-card>
   </div>
 </template>
 
 <script>
+
+import StepperMotor from '@/components/StepperMotor'
+
 export default {
   name: 'Monitor',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+  data: () => ({
+    startAngle: 0,
+    stopAngle: 270
+  }),
+  components: {
+    StepperMotor
   }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h1, h2 {
   font-weight: normal;
 }
@@ -109,5 +51,14 @@ li {
 }
 a {
   color: #42b983;
+}
+.stepperMotorPosition {
+  fill: black;
+  transform-origin: center;
+  width: 200px; height: 200px;
+}
+.stepperMotorPosition > circle {
+  stroke-width: 6px;
+  stroke: #ff5252;
 }
 </style>
