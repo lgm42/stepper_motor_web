@@ -7,11 +7,12 @@
 
       <md-card-content>
         <div>
-          <StepperMotor :radius="180"></StepperMotor>
+          <StepperMotor :radius="80" :startAngle="startAngle" :stopAngle="stopAngle" :position="position"></StepperMotor>
         </div>
-        <div id="stepper"></div>
         <div>
-          <input type="range" v-model.number="startAngle"> {{ startAngle }}%
+          <input type="range" v-model.number="startAngle" min="0" max="360"> {{ startAngle }} °
+          <input type="range" v-model.number="stopAngle"  min="0" max="360"> {{ stopAngle }} °
+          <input type="range" v-model.number="position" min="0" max="360"> {{ position }} °
         </div>
       </md-card-content>
 
@@ -26,14 +27,15 @@ import StepperMotor from '@/components/StepperMotor'
 export default {
   name: 'Monitor',
   data: () => ({
-    startAngle: 0,
-    stopAngle: 270
+    startAngle: 90,
+    stopAngle: 270,
+    position: 90
   }),
   components: {
     StepperMotor
   }
 }
-
+// var stepper = new StepperMotor();
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -53,12 +55,8 @@ a {
   color: #42b983;
 }
 .stepperMotorPosition {
-  fill: black;
   transform-origin: center;
   width: 200px; height: 200px;
 }
-.stepperMotorPosition > circle {
-  stroke-width: 6px;
-  stroke: #ff5252;
-}
+
 </style>
