@@ -12,9 +12,9 @@
 
         <div class="md-toolbar-row">
           <md-tabs class="md-primary" md-alignment="centered">
-            <md-tab id="tab-home" md-icon="dashboard" md-label="Monitor" to="/" exact></md-tab>
-            <md-tab id="tab-pages" md-icon="tune" md-label="Control" to="/Control"></md-tab>
-            <md-tab id="tab-posts" md-icon="settings" md-label="Configure" to="/Configure"></md-tab>
+            <md-tab md-icon="dashboard" md-label="Monitor" to="/" exact></md-tab>
+            <md-tab md-icon="tune" md-label="Control" to="/Control"></md-tab>
+            <md-tab md-icon="settings" md-label="Configure" to="/Configure"></md-tab>
           </md-tabs>
         </div>
       </md-app-toolbar>

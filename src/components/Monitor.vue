@@ -7,12 +7,13 @@
 
       <md-card-content>
         <div>
-          <StepperMotor :radius="80" :startAngle="startAngle" :stopAngle="stopAngle" :position="position"></StepperMotor>
+          <StepperMotor :radius="90" :positiveAngle="positiveAngle" :negativeAngle="negativeAngle" :position="position" :origin="origin"></StepperMotor>
         </div>
         <div>
-          <input type="range" v-model.number="startAngle" min="0" max="360"> {{ startAngle }} °
-          <input type="range" v-model.number="stopAngle"  min="0" max="360"> {{ stopAngle }} °
-          <input type="range" v-model.number="position" min="0" max="360"> {{ position }} °
+          Negative angle<input type="range" v-model.number="negativeAngle" min="0" max="360"> {{ negativeAngle }} °<br/>
+          Positive angle<input type="range" v-model.number="positiveAngle"  min="0" max="360"> {{ positiveAngle }} °<br/>
+          Position<input type="range" v-model.number="position" min="0" max="360"> {{ position }} °<br/>
+          Origin<input type="range" v-model.number="origin" min="0" max="360"> {{ origin }} °<br/>
         </div>
       </md-card-content>
 
@@ -27,9 +28,10 @@ import StepperMotor from '@/components/StepperMotor'
 export default {
   name: 'Monitor',
   data: () => ({
-    startAngle: 90,
-    stopAngle: 270,
-    position: 90
+    positiveAngle: 90,
+    negativeAngle: 90,
+    position: 90,
+    origin: 120
   }),
   components: {
     StepperMotor
