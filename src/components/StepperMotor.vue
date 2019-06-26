@@ -11,7 +11,21 @@
       <circle class="limit-cursor" :cx="_startCursorOnCircleX" :cy="_startCursorOnCircleY"></circle>
       <circle class="limit-cursor" :cx="_endCursorOnCircleX" :cy="_endCursorOnCircleY"></circle>
       <circle :class="['cursor', _positionHasToBeHidden ? 'hidden' : '']" :cx="_positionOnCircleX" :cy="_positionOnCircleY"></circle>
-      <text class="icon" x="50%" y="50%" >dashboard</text>
+      <path :x="_originHomeX" :y="_originHomeY" d="
+              M 2.5 16
+              L 2.5 8
+              L 0 8
+              L 8 0
+              L 16 8
+              L 13.5 8
+              L 13.5 16
+              L 10 16
+              L 10 11
+              L 6 11
+              L 6 16
+              L 2.5 16
+              Z
+            "></path>
     </svg>
   </div>
 </template>
@@ -90,6 +104,14 @@ export default {
 
     _originOnCircleY: function () {
       return Math.sin((parseInt(this.origin) - 90) * Math.PI / 180) * this.radius
+    },
+
+    _originHomeX: function () {
+      return Math.cos((parseInt(this.origin) - 90) * Math.PI / 180) * (this.radius + 50)
+    },
+
+    _originHomeY: function () {
+      return Math.sin((parseInt(this.origin) - 90) * Math.PI / 180) * (this.radius + 50)
     },
 
     _startCursorOnCircleX: function () {
