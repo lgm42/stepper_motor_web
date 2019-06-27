@@ -10,22 +10,24 @@
       <circle class="origin" :cx="_originOnCircleX" :cy="_originOnCircleY"></circle>
       <circle class="limit-cursor" :cx="_startCursorOnCircleX" :cy="_startCursorOnCircleY"></circle>
       <circle class="limit-cursor" :cx="_endCursorOnCircleX" :cy="_endCursorOnCircleY"></circle>
-      <circle :class="['cursor', _positionHasToBeHidden ? 'hidden' : '']" :cx="_positionOnCircleX" :cy="_positionOnCircleY"></circle>
-      <path :x="_originHomeX" :y="_originHomeY" d="
-              M 2.5 16
-              L 2.5 8
-              L 0 8
+      <g class="homeIcon">
+        <path :style="_homeStyle" d="
+              M -5.5 8
+              L -5.5 0
+              L -8 0
+              L 0 -8
               L 8 0
-              L 16 8
-              L 13.5 8
-              L 13.5 16
-              L 10 16
-              L 10 11
-              L 6 11
-              L 6 16
-              L 2.5 16
+              L 5.5 0
+              L 5.5 8
+              L 2 8
+              L 2 3
+              L -2 3
+              L -2 8
+              L -5.5 8
               Z
-            "></path>
+            " ></path><!--:style="_homeStyle"-->
+      </g>
+      <circle :class="['cursor', _positionHasToBeHidden ? 'hidden' : '']" :cx="_positionOnCircleX" :cy="_positionOnCircleY"></circle>
     </svg>
   </div>
 </template>
@@ -107,11 +109,15 @@ export default {
     },
 
     _originHomeX: function () {
-      return Math.cos((parseInt(this.origin) - 90) * Math.PI / 180) * (this.radius + 50)
+      return Math.cos((parseInt(this.origin) - 90) * Math.PI / 180) * (this.radius + 0)
     },
 
     _originHomeY: function () {
-      return Math.sin((parseInt(this.origin) - 90) * Math.PI / 180) * (this.radius + 50)
+      return Math.sin((parseInt(this.origin) - 90) * Math.PI / 180) * (this.radius + 0)
+    },
+
+    _homeStyle: function () {
+      return 'transform: translate(' + this._originHomeX + 'px, ' + this._originHomeY + 'px);'
     },
 
     _startCursorOnCircleX: function () {
@@ -191,6 +197,10 @@ export default {
   stroke: #ff5252;
   transform: translate(50%, 50%);
   r: 15;
+}
+
+.homeIcon {
+  transform: translate(50%, 50%);
 }
 
 .positionValue {
