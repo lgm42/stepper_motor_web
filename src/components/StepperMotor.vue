@@ -42,12 +42,10 @@ export default {
       type: Number,
       default: 100
     },
-    positiveAngle: Number,
-    negativeAngle: Number,
-    position: {
-      type: Number
-    },
-    origin: Number
+    positiveAngle: 0,
+    negativeAngle: 0,
+    position: 0,
+    origin: 0
   },
   data: () => ({
     margin: 20,
@@ -93,11 +91,11 @@ export default {
     },
 
     _positionOnCircleX: function () {
-      return Math.cos((parseInt(this.position) - 90) * Math.PI / 180) * this.radius
+      return (Math.cos((parseInt(this.position) - 90) * Math.PI / 180) * this.radius | 0)
     },
 
     _positionOnCircleY: function () {
-      return Math.sin((parseInt(this.position) - 90) * Math.PI / 180) * this.radius
+      return (Math.sin((parseInt(this.position) - 90) * Math.PI / 180) * this.radius | 0)
     },
 
     _originOnCircleX: function () {

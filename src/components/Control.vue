@@ -18,15 +18,16 @@
 <script>
 
 import StepperMotor from '@/components/StepperMotor'
+import { store } from '../store'
 
 export default {
   name: 'Control',
   data () {
     return {
-      positiveAngle: 90.0,
-      negativeAngle: 90.0,
-      position: 23.0,
-      origin: 0.0
+      positiveAngle: store.state.positiveAngle,
+      negativeAngle: store.state.negativeAngle,
+      position: store.state.position,
+      origin: store.state.origin
     }
   },
   components: {

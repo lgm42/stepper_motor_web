@@ -32,8 +32,8 @@
         </md-field>
       </md-card-content>
       <md-card-actions md-alignment="space-between">
-        <md-button class="md-raised md-accent">Restore default values</md-button>
-        <md-button>Save</md-button>
+        <md-button class="md-raised md-accent" v-on:click="restoreDefault">Restore default values</md-button>
+        <md-button v-on:click="save">Save</md-button>
       </md-card-actions>
     </md-card>
 
@@ -55,25 +55,44 @@
 <script>
 
 import StepperMotor from '@/components/StepperMotor'
-import { store } from '../store';
+import { store } from '../store'
 
 export default {
   name: 'Configure',
   data () {
     return {
       positiveAngle: store.state.positiveAngle,
-      negativeAngle: 90.0,
-      position: 23.0,
-      origin: 0.0,
-      reductionRate: 6.0,
-      stepResolution: 1,
+      negativeAngle: store.state.negativeAngle,
+      position: store.state.position,
+      origin: store.state.origin,
+      reductionRate: store.state.reductionRate,
+      stepResolution: store.state.stepResolution,
       stepResolutionOptions: [
         { text: 'Full step', value: 1 },
         { text: 'Half step', value: 0.5 },
         { text: 'Quarter step', value: 0.25 },
         { text: 'Eighth step', value: 0.125 },
-        { text: 'Sixteenth step', value: 0.125 }
+        { text: 'Sixteenth step', value: 0.06125 }
       ]
+    }
+  },
+  methods: {
+    save: function (event) {
+      store.positiveAngle(this.positiveAngle)
+      store.negativeAngle(this.negativeAngle)
+      store.position(this.position)
+      store.origin(this.origin)
+      store.reductionRate(this.reductionRate)
+      store.stepResolution(this.stepResolution)
+    },
+    restoreDefault: function (event) {
+      this.positiveAngle = 90
+      this.negativeAngle = 90
+      this.position = 0
+      this.origin = 0
+      this.reductionRate = 6
+      this.stepResolution = 1
+      this.save()
     }
   },
   components: {
