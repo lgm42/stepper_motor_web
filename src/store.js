@@ -1,4 +1,5 @@
 export const store = {
+  debug: true,
   state: {
     positiveAngle: 90,
     negativeAngle: 90,
@@ -26,5 +27,12 @@ export const store = {
   },
   stepResolution (angle) {
     this.state.stepResolution = parseFloat(angle)
+  },
+  connectionUrl () {
+    if (window['environment'] === 'production') {
+      return 'http://' + location.host
+    } else {
+      return 'http://10.65.30.39'
+    }
   }
 }

@@ -70,7 +70,7 @@ export default {
   },
   created () {
     this.interval = setInterval(() => {
-      fetch('http://10.65.30.39/position')
+      fetch(store.state.connectionUrl + '/position')
         .then((res) => res.json())
         .then(data => {
           store.state.position = data.data.position

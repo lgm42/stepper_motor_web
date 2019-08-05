@@ -12,6 +12,8 @@ import 'vue-material/dist/theme/default-dark.css'
 Vue.config.productionTip = false
 Vue.use(VueMaterial)
 
+window['environment'] = process.env.NODE_ENV
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
