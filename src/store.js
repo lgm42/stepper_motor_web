@@ -16,6 +16,7 @@ export const store = {
     this.state.negativeAngle = parseInt(angle)
   },
   position (angle) {
+    console.log('position déclenchée avec', angle)
     this.state.position = parseInt(angle)
   },
   origin (angle) {

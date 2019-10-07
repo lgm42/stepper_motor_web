@@ -13,34 +13,34 @@
           <md-button class="md-icon-button md-raised md-accent toolButton" v-on:click="rotate(-90)">
             -90&nbsp;
           </md-button>
-          <md-button class="md-icon-button md-raised md-accent toolButton">
+          <md-button class="md-icon-button md-raised md-accent toolButton" v-on:click="rotate(-45)">
             -45&nbsp;
           </md-button>
-          <md-button class="md-icon-button md-raised toolButton">
+          <md-button class="md-icon-button md-raised toolButton" v-on:click="rotate(-10)">
             -10&nbsp;
           </md-button>
-          <md-button class="md-icon-button md-raised toolButton">
+          <md-button class="md-icon-button md-raised toolButton" v-on:click="rotate(-5)">
             -5&nbsp;
           </md-button>
-          <md-button class="md-icon-button md-raised toolButton">
+          <md-button class="md-icon-button md-raised toolButton" v-on:click="rotate(-1)">
             -1&nbsp;
           </md-button>
-          <md-button class="md-icon-button md-raised md-accent">
+          <md-button class="md-icon-button md-raised md-accent" v-on:click="setPosition(0)">
             <md-icon>home</md-icon>
           </md-button>
-          <md-button class="md-icon-button md-raised toolButton">
+          <md-button class="md-icon-button md-raised toolButton" v-on:click="rotate(1)">
             +1&nbsp;
           </md-button>
-          <md-button class="md-icon-button md-raised toolButton">
+          <md-button class="md-icon-button md-raised toolButton" v-on:click="rotate(5)">
             +5&nbsp;
           </md-button>
-          <md-button class="md-icon-button md-raised toolButton">
+          <md-button class="md-icon-button md-raised toolButton" v-on:click="rotate(10)">
             +10&nbsp;
           </md-button>
-          <md-button class="md-icon-button md-raised toolButton md-accent">
+          <md-button class="md-icon-button md-raised toolButton md-accent" v-on:click="rotate(45)">
             +45&nbsp;
           </md-button>
-          <md-button class="md-icon-button md-raised toolButton md-accent">
+          <md-button class="md-icon-button md-raised toolButton md-accent" v-on:click="rotate(90)">
             +90&nbsp;
           </md-button>
         </div>
@@ -65,21 +65,32 @@ export default {
       origin: store.state.origin
     }
   },
-  methods: {
-
-  },
   created () {
     this.interval = setInterval(() => {
-      fetch('http://10.65.30.39/position')
+      fetch('http://' + process.env.SERVER_IP + '/position')
         .then((res) => res.json())
         .then(data => {
-          store.state.position = data.data.position
+          console.log(data)
+          if (data.result) {
+            store.position(data.data.position)
+          }
         })
         .catch((err) => console.error(err))
     }, 1000)
   },
   components: {
     StepperMotor
+  },
+  methods: {
+    rotate: function (value) {
+      fetch('http://' + process.env.SERVER_IP + '/startRotate?relativeAngle=' + value)
+        .then((res) => res.json())
+        .then(data => {
+          console.log(data)
+          store.state.position = data.data.position
+        })
+        .catch((err) => console.error(err))
+    }
   }
 }
 </script>
