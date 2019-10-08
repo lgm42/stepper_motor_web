@@ -4,7 +4,6 @@
       <md-card-header>
         <div class="md-title">Configuration</div>
       </md-card-header>
-
       <md-card-content>
         <md-field>
           <label>Home Position Angle</label>
@@ -19,17 +18,21 @@
           <md-input v-model="positiveAngle" type="number" min="0"></md-input>
         </md-field>
         <md-field>
+          <label>Motor steps per revolution</label>
+          <md-input v-model="motorStepNumber" type="number" min="0"></md-input>
+        </md-field>
+        <md-field>
           <label>Reduction rate</label>
           <md-input v-model="reductionRate" type="number" min="0"></md-input>
         </md-field>
-        <md-field>
+        <!--<md-field>
           <label for="stepResolution">Stepper motor resolution</label>
           <md-select v-model="stepResolution">
             <md-option v-for="stepResolutionOption in stepResolutionOptions" v-bind:key="stepResolutionOption.value" v-bind:value="stepResolutionOption.value">
             {{stepResolutionOption.text}}
             </md-option>
           </md-select>
-        </md-field>
+        </md-field>-->
       </md-card-content>
       <md-card-actions md-alignment="space-between">
         <md-button class="md-raised md-accent" v-on:click="restoreDefault">Restore default values</md-button>
@@ -66,6 +69,7 @@ export default {
       position: store.state.position,
       origin: store.state.origin,
       reductionRate: store.state.reductionRate,
+      motorStepNumber: store.state.motorStepNumber,
       stepResolution: store.state.stepResolution,
       stepResolutionOptions: [
         { text: 'Full step', value: 1 },
@@ -76,6 +80,9 @@ export default {
       ]
     }
   },
+  created () {
+    store.load()
+  },
   methods: {
     save: function (event) {
       store.positiveAngle(this.positiveAngle)
@@ -83,7 +90,19 @@ export default {
       store.position(this.position)
       store.origin(this.origin)
       store.reductionRate(this.reductionRate)
+      store.motorStepNumber(this.motorStepNumber)
       store.stepResolution(this.stepResolution)
+      fetch('http://' + process.env.SERVER_IP + '/parameters', {
+        method: 'post',
+        body: JSON.stringify(store.state)})
+        .then((res) => res.json())
+        .then(data => {
+          console.log(data)
+          if (!data.result) {
+            console.error('Unable to save parameters')
+          }
+        })
+        .catch((err) => console.error(err))
     },
     restoreDefault: function (event) {
       this.positiveAngle = 90
@@ -91,6 +110,7 @@ export default {
       this.position = 0
       this.origin = 0
       this.reductionRate = 6
+      this.motorStepNumber = 64
       this.stepResolution = 1
       this.save()
     }
